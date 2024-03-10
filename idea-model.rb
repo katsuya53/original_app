@@ -1,5 +1,5 @@
 =begin
-新しいアプリを作成しようと思っています。
+新しいアプリを作成
 title、text、写真を投稿できるpostsモデル
 nickname、email。passwordをユーザー登録してログインユーザーを管理するusersモデル
 ユーザーが投稿にいいねをできるlikesモデル
@@ -15,7 +15,6 @@ nickname、email。passwordをユーザー登録してログインユーザー�
 誰でも(public)：ログインしていない人も閲覧できる
 登録者(private)：ログインしているユーザーだけ閲覧
 非公開(personal)：投稿したユーザーだけ閲覧
-
 
 =end
 
