@@ -1,12 +1,14 @@
 =begin
 新しいアプリを作成します
-title、text、写真を投稿できるpostsモデル
-nickname、email。passwordをユーザー登録してログインユーザーを管理するusersモデル
+post_title、post_text、post_imageである写真を投稿できるpostsモデル
+nickname、email、passwordをユーザー登録してログインユーザーを管理するusersモデル
 ユーザーが投稿にいいねをできるlikesモデル
-ユーザーがフォローすることができ、フォロした人、フォロワーを管理するfollowsモデル
-投稿にコメントとしてtextを投稿できるcommentモデル
-カレンダーにtitle、text、datetimeを登録できるblogsモデル
-また、カレンダーに登録した日時datetimeにメールを配信してくれるようになっています
+ユーザーが他のフォローすることができ、follower_id、followee_idを管理するfollowsモデル
+投稿にコメントとしてpost_textを投稿できるcommentsモデル
+post投稿にタグ付けできるようにするので、tagsモデルとその中間モデルのpost_tagsモデル
+カレンダーにblog_title、blog_text、datetimeを登録できるblogsモデル
+postsモデルとは別に植物の成長記録を記録しようと、record_text、record_imageと植物名のcategoryを記録するrecordsモデル
+recordモデルに紐づく植物名を管理するcategoriesモデル
 
 ユーザー登録したユーザがログインすれば、全ての機能を利用できますが、
 ユーザー登録しなくても、公開範囲の制限によって閲覧できるものは閲覧できます
@@ -24,8 +26,7 @@ nickname、email。passwordをユーザー登録してログインユーザー�
 全ての投稿、非公開
 を選ぶと表示が変わるようにします
 
-この非公開は要するに自分の日記のようなものかなと思っています。
-
+あとは投稿する時に、他のユーザーに質問できるように投稿時になにか質問の投稿であるように分かるような機能が欲しいです
 
 どう思いますか？
 
