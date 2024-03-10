@@ -15,7 +15,9 @@
 - has_many :reverse_follows, foreign_key: "followee_id", class_name: "Follow", dependent: :destroy
 - has_many :followers, through: :reverse_follows, source: :follower
 - has_many :comments
-- has_many :records
+- has_many :blogs, dependent: :destroy
+- has_many :records, dependent: :destroy
+- has_many :categories, through: :records
 
 
 ## posts テーブル
