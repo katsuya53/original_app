@@ -1,0 +1,119 @@
+posts モデル:
+post_title (文字列): 投稿のタイトル
+post_text (テキスト): 投稿の本文
+post_image (文字列): 画像のファイルパスまたはURL
+
+users モデル:
+nickname (文字列): ユーザーのニックネーム
+email (文字列): ユーザーのメールアドレス
+password (文字列): ユーザーのパスワード
+prefecture (文字列): ユーザーの都道府県
+icon_image (文字列): 画像のファイルパスまたはURL
+
+likes モデル:
+user_id (整数): いいねをしたユーザーのID
+post_id (整数): いいねをした投稿のID
+
+follows モデル:
+follower_id (整数): フォローするユーザーのID
+followee_id (整数): フォローされるユーザーのID
+
+comments モデル:
+post_id (整数): コメントが付いた投稿のID
+post_text (テキスト): コメントの本文
+
+tags モデル:
+tag_name (文字列): タグの名前
+post_tags モデル (PostとTagを結ぶ中間モデル):
+post_id (整数): 投稿のID
+tag_id (整数): タグのID
+
+blogs モデル:
+blog_title (文字列): カレンダーに登録されたブログのタイトル
+blog_text (テキスト): カレンダーに登録されたブログの本文
+datetime (日時): カレンダーに登録されたブログの日時
+
+records モデル:
+record_text (テキスト): 成長記録のテキスト
+record_image (文字列): 成長記録の画像のファイルパスまたはURL
+category_id (整数): カテゴリーのID
+user_id (整数): ユーザーのID
+
+categories モデル:
+name (文字列): カテゴリーの名前
+
+
+
+
+
+posts テーブル
+Column	Type	Options
+post_title	string	
+post_text	text	
+post_image	string	
+
+Association
+has_many :likes
+has_many :comments
+has_many :post_tags
+has_many :tags, through: :post_tags
+
+
+users テーブル
+Column	Type	Options
+nickname	string	null: false
+email	string	null: false, unique: true
+password	string	null: false
+prefecture	string	
+icon_image	string	
+
+Association
+has_many :posts
+has_many :likes
+has_many :follows, foreign_key: "follower_id", dependent: :destroy
+has_many :following_users, through: :follows, source: :followee
+has_many :reverse_follows, foreign_key: "followee_id", class_name: "Follow", dependent: :destroy
+has_many :followers, through: :reverse_follows, source: :follower
+has_many :comments
+has_many :records
+has_many :orders
+
+
+likes テーブル
+Column	Type	Options
+user_id	integer	null: false, foreign_key: true
+post_id	integer	null: false, foreign_key: true
+
+Association
+belongs_to :user
+belongs_to :post
+
+
+follows テーブル
+Column	Type	Options
+follower_id	integer	null: false, foreign_key: true
+followee_id	integer	null: false, foreign_key: true
+
+Association
+belongs_to :follower, class_name: "User"
+belongs_to :followee, class_name: "User"
+
+
+comments テーブル
+Column	Type	Options
+post_id	integer	null: false, foreign_key: true
+text	text	null: false
+user_id	integer	null: false, foreign_key: true
+
+Association
+belongs_to :post
+belongs_to :user
+
+
+tags テーブル
+Column	Type	Options
+name	string	null: false, unique: true
+
+Association
+has_many :post_tags
+has_many :posts, through: :post_tags
